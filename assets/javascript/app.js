@@ -24,8 +24,10 @@ var cities = [
 "Zagreb"];
 
 var chosenCity = "";
+var attempt;
 var chosenCityArray = [];
 var hiddenCity = [];
+var shownCity = [];
 
 //keyboard rows
 var row1 = ['P', 'Y', 'F', 'G', 'C', 'R', 'L'];
@@ -66,8 +68,8 @@ for (var i = 0; i < row3.length; i++) {
 
 	$(".row3").append(letterBtn);
 }
-//print 4th row of keyboard
-function printSpace() {
+//print 4th row of keyboard (space button)
+function printSpaceButton() {
 	var letterBtn = $("<button>");
 
 	letterBtn.addClass("btnLetter btn btn-warning btn-sm text-center mt-1 btnSpace");
@@ -77,52 +79,24 @@ function printSpace() {
 	$(".row4").append(letterBtn);
 }
 
-printSpace();
-
 function startGame() {
 
 	chosenCity = cities[Math.floor(Math.random() * cities.length)];
-
 	console.log(chosenCity);
-	
+	attempt = Math.floor(chosenCity.length * 2 / 3) + Math.floor((Math.random() * 5) + 1);
 	chosenCityArray = chosenCity.split("");
-
-	console.log('city name after split: ', chosenCityArray);
-
 	hiddenCity = [];
 
 	for (var i = 0; i < chosenCityArray.length; i++) {
 		hiddenCity.push('_');
 	}
 
-	var shownCity = hiddenCity.join(' ');
-
-	console.log('hidden city name: ', hiddenCity);
-	console.log('city name shown: ', shownCity);
-
+	shownCity = hiddenCity.join(' ');
 	$('.word').html(shownCity);
+	$('.scoreBoard').html('Attempt remaining: ' + attempt);
 }
 
-startGame();
-
-//click on letter
-$(".btnLetter").on("click", function() {
-
-	if (!($(this).hasClass('clicked'))) {
-		var keyClicked = $(this).attr("data-letter").toLowerCase();
-
-		checkLetters(keyClicked);
-
-		$(this).addClass('clicked');
-		console.log(keyClicked);
-	}
-	else {
-		return;
-	}
-});
-
 function checkLetters(letter) {
-
 	var match = false;
 
 	for (var i = 0; i < chosenCityArray.length; i++) {
@@ -143,18 +117,59 @@ function checkLetters(letter) {
 				}
 				else {
 					hiddenCity[j] = chosenCity[j];
-					console.log(hiddenCity);
 				}
-				
 			}
 		}
 
-		var join = hiddenCity.join(' ');
+		shownCity = hiddenCity.join(' ');
+		$('.word').html(shownCity);
+	}
+	else {
+		attempt--;
+	}
+	updateScore();
+}
 
-		console.log('city after join: ', join);
-	
-		$('.word').html(join);
+function updateScore() {
+	$('.scoreBoard').html('Attempt remaining: ' + attempt);
 
-		console.log('city after print: ', join);
+	var x = chosenCityArray.join('');
+	var y = hiddenCity.join('');
+
+	var a = x.toString();
+	var b = y.toString();
+
+	if (x === y) {
+		console.log('win');
+	}
+	else if (attempt < 1) {
+		$('.alert').addClass('alert-danger').html('Sorry...');
+		$('.keyboard').hide();
 	}
 }
+
+printSpaceButton();
+startGame();
+
+//click on letter
+$('.btnLetter').on("click", function() {
+
+	if (!($(this).hasClass('clicked'))) {
+		var keyClicked = $(this).attr("data-letter").toLowerCase();
+
+		checkLetters(keyClicked);
+
+		$(this).addClass('clicked');
+		console.log(keyClicked);
+	}
+	else {
+		return;
+	}
+});
+
+$(".btnNewGame").on("click", function() {
+	$('.alert').attr('class', 'alert').html('');
+	$('.btnLetter').removeClass('clicked');
+	$('.keyboard').show();
+	startGame();
+});
