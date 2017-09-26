@@ -1,0 +1,14 @@
+.row {
+	margin: 0;
+	padding: 0;
+}
+
+.col-12 {
+	padding: 0;
+}
+
+.btnLetter{
+	margin: 0 1px;
+	width: 30px;
+	height: 30px;
+}
