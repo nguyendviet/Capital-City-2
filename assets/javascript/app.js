@@ -80,7 +80,6 @@ function printSpaceButton() {
 }
 
 function startGame() {
-
 	chosenCity = cities[Math.floor(Math.random() * cities.length)];
 	console.log(chosenCity);
 	attempt = Math.floor(chosenCity.length * 2 / 3) + Math.floor((Math.random() * 5) + 1);
@@ -93,7 +92,11 @@ function startGame() {
 
 	shownCity = hiddenCity.join(' ');
 	$('.word').html(shownCity);
-	$('.scoreBoard').html('Attempt remaining: ' + attempt);
+	$('.scoreBoard').html('Attempt(s) remaining: <b>' + attempt + '</b>');
+	$('.alert').attr('class', 'alert').html('');
+	$('.btnLetter').removeClass('clicked');
+	$('.keyboard').show();
+	$('.map').html('');
 }
 
 function checkLetters(letter) {
@@ -131,21 +134,24 @@ function checkLetters(letter) {
 }
 
 function updateScore() {
-	$('.scoreBoard').html('Attempt remaining: ' + attempt);
+	$('.scoreBoard').html('Attempt remaining: <b>' + attempt + '</b>');
 
-	var x = chosenCityArray.join('');
-	var y = hiddenCity.join('');
+	var hiddenLetter = shownCity.includes('_');
 
-	var a = x.toString();
-	var b = y.toString();
-
-	if (x === y) {
-		console.log('win');
+	if (!hiddenLetter) {
+		$('.alert').addClass('alert-success').html('Well done!');
+		$('.keyboard').hide();
+		showMap();
 	}
 	else if (attempt < 1) {
-		$('.alert').addClass('alert-danger').html('Sorry...');
+		$('.alert').addClass('alert-danger').html('Sorry... It\'s <b>' + chosenCity + '</b>');
 		$('.keyboard').hide();
+		showMap();
 	}
+}
+
+function showMap() {
+	$('.map').html('<iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDAikSQuBsWZtyn6OZOOEWR6XFGHrok-6E&q=' + chosenCity + '+capital+city" allowfullscreen></iframe>');
 }
 
 printSpaceButton();
@@ -168,8 +174,5 @@ $('.btnLetter').on("click", function() {
 });
 
 $(".btnNewGame").on("click", function() {
-	$('.alert').attr('class', 'alert').html('');
-	$('.btnLetter').removeClass('clicked');
-	$('.keyboard').show();
 	startGame();
 });
