@@ -24,32 +24,15 @@ var cities = [
 "Zagreb"];
 
 var chosenCity = "";
-
-// This will break the solution into individual letters to be stored in array.
 var chosenCityArray = [];
-
-// This will be the number of blanks we show based on the solution.
-var numBlanks = 0;
-
-// Holds a mix of blank and solved letters (ex: 'n, _ _, n, _').
 var hiddenCity = [];
-
-// Holds all of the wrong guesses.
-var wrongGuesses = [];
-
-// Holds the letters guessed
-var letterGuessed = "";
-
-// Game counters
-var winCounter = 0;
-var lossCounter = 0;
-var numGuesses = 9;
 
 //keyboard rows
 var row1 = ['P', 'Y', 'F', 'G', 'C', 'R', 'L'];
 var row2 = ['A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S'];
 var row3 = ['Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'];
-var row4 = ['_'];
+var row4 = [' '];
+var keyPressed = false;
 
 //print 1st row of keyboard
 for (var i = 0; i < row1.length; i++) {
@@ -104,7 +87,7 @@ function startGame() {
 	
 	chosenCityArray = chosenCity.split("");
 
-	console.log(chosenCityArray);
+	console.log('city name after split: ', chosenCityArray);
 
 	hiddenCity = [];
 
@@ -112,8 +95,12 @@ function startGame() {
 		hiddenCity.push('_');
 	}
 
-	var showHiddenCity = hiddenCity.join(' ');
-	$('.word').html(showHiddenCity);
+	var shownCity = hiddenCity.join(' ');
+
+	console.log('hidden city name: ', hiddenCity);
+	console.log('city name shown: ', shownCity);
+
+	$('.word').html(shownCity);
 }
 
 startGame();
@@ -121,37 +108,53 @@ startGame();
 //click on letter
 $(".btnLetter").on("click", function() {
 
-	var keyClicked = $(this).attr("data-letter").toLowerCase();
+	if (!($(this).hasClass('clicked'))) {
+		var keyClicked = $(this).attr("data-letter").toLowerCase();
 
-	// checkLetters(keyClicked);
+		checkLetters(keyClicked);
 
-	console.log(keyClicked);
+		$(this).addClass('clicked');
+		console.log(keyClicked);
+	}
+	else {
+		return;
+	}
 });
 
-
-
-/*function checkLetters(letter) {
+function checkLetters(letter) {
 
 	var match = false;
 
-	for (var i = 0; i < numBlanks; i++) {
+	for (var i = 0; i < chosenCityArray.length; i++) {
 
-		if (chosenCity[i] == letter) {
+		if (chosenCity[i].toLowerCase() == letter) {
 			match = true;
 		}
 	}
 
 	if (match) {
 
-		for (var j = 0; j < numBlanks; j++) {
+		for (var j = 0; j < chosenCityArray.length; j++) {
 
-			if (chosenCity[j] == letter) {
-				blanksAndSuccesses[j] = letter;
+			if (chosenCity[j].toLowerCase() == letter) {
+
+				if (chosenCity[j] === ' ') {
+					hiddenCity[j] = '&nbsp;';
+				}
+				else {
+					hiddenCity[j] = chosenCity[j];
+					console.log(hiddenCity);
+				}
+				
 			}
 		}
 
-		var join = blanksAndSuccesses.join(' ');
+		var join = hiddenCity.join(' ');
+
+		console.log('city after join: ', join);
 	
-		$('#word-blanks').html(join);
+		$('.word').html(join);
+
+		console.log('city after print: ', join);
 	}
-}*/
+}

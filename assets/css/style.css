@@ -16,3 +16,8 @@
 .btnSpace{
 	width: 120px;
 }
+
+.clicked {
+	color: #cccccc;
+	background-color: #ffffcc;
+}
