@@ -35,6 +35,8 @@ var row2 = ['A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S'];
 var row3 = ['Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'];
 var row4 = [' '];
 var keyPressed = false;
+var win = 0;
+var loss = 0;
 
 //print 1st row of keyboard
 for (var i = 0; i < row1.length; i++) {
@@ -92,7 +94,8 @@ function startGame() {
 
 	shownCity = hiddenCity.join(' ');
 	$('.word').html(shownCity);
-	$('.scoreBoard').html('Attempt(s) remaining: <b>' + attempt + '</b>');
+	$('.attempt').html('Attempt(s) remaining: <b>' + attempt + '</b>');
+	$('.scoreBoard').html('Cities visited: ' + win + ' & Cities missed: ' + loss);
 	$('.alert').attr('class', 'alert').html('');
 	$('.btnLetter').removeClass('clicked');
 	$('.keyboard').show();
@@ -134,7 +137,7 @@ function checkLetters(letter) {
 }
 
 function updateScore() {
-	$('.scoreBoard').html('Attempt remaining: <b>' + attempt + '</b>');
+	$('.attempt').html('Attempt(s) remaining: <b>' + attempt + '</b>');
 
 	var hiddenLetter = shownCity.includes('_');
 
@@ -142,11 +145,15 @@ function updateScore() {
 		$('.alert').addClass('alert-success').html('Well done!');
 		$('.keyboard').hide();
 		showMap();
+		win++;
+		$('.scoreBoard').html('Cities visited: ' + win + ' & Cities missed: ' + loss);
 	}
 	else if (attempt < 1) {
 		$('.alert').addClass('alert-danger').html('Sorry... It\'s <b>' + chosenCity + '</b>');
 		$('.keyboard').hide();
 		showMap();
+		loss++;
+		$('.scoreBoard').html('Cities visited: ' + win + ' & Cities missed: ' + loss);
 	}
 }
 
@@ -166,7 +173,6 @@ $('.btnLetter').on("click", function() {
 		checkLetters(keyClicked);
 
 		$(this).addClass('clicked');
-		console.log(keyClicked);
 	}
 	else {
 		return;
