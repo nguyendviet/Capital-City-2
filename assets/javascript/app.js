@@ -1,4 +1,4 @@
-var names = [
+var cities = [
 "Abu Dhabi","Abuja","Accra","Addis Ababa","Aden","Algiers","Amman","Amsterdam","Andorra la Vella","Ankara","Antananarivo","Apia","Ashgabat","Asmara","Astana","Asuncion","Athens",
 "Baghdad","Baku","Bamako","Bandar Seri Begawan","Bangkok","Bangui","Banjul","Basseterre","Beijing","Beirut","Belgrade","Belmopan","Berlin","Bern","Bishkek","Bissau","Bogota","Brasilia","Bratislava","Brazzaville","Bridgetown","Brussels","Bucharest","Budapest","Buenos Aires","Bujumbura",
 "Cairo","Canberra","Cape Town","Caracas","Castries","Chisinau","Conakry","Copenhagen",
@@ -23,10 +23,35 @@ var names = [
 "Yamoussoukro","Yaounde","Yaren","Yerevan",
 "Zagreb"];
 
+var chosenCity = "";
+
+// This will break the solution into individual letters to be stored in array.
+var chosenCityArray = [];
+
+// This will be the number of blanks we show based on the solution.
+var numBlanks = 0;
+
+// Holds a mix of blank and solved letters (ex: 'n, _ _, n, _').
+var hiddenCity = [];
+
+// Holds all of the wrong guesses.
+var wrongGuesses = [];
+
+// Holds the letters guessed
+var letterGuessed = "";
+
+// Game counters
+var winCounter = 0;
+var lossCounter = 0;
+var numGuesses = 9;
+
+//keyboard rows
 var row1 = ['P', 'Y', 'F', 'G', 'C', 'R', 'L'];
 var row2 = ['A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S'];
 var row3 = ['Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'];
+var row4 = ['_'];
 
+//print 1st row of keyboard
 for (var i = 0; i < row1.length; i++) {
 	var letterBtn = $("<button>");
 
@@ -37,6 +62,7 @@ for (var i = 0; i < row1.length; i++) {
 	$(".row1").append(letterBtn);
 }
 
+//print 2nd row of keyboard
 for (var i = 0; i < row2.length; i++) {
 	var letterBtn = $("<button>");
 
@@ -47,6 +73,7 @@ for (var i = 0; i < row2.length; i++) {
 	$(".row2").append(letterBtn);
 }
 
+//print 3rd row of keyboard
 for (var i = 0; i < row3.length; i++) {
 	var letterBtn = $("<button>");
 
@@ -56,12 +83,75 @@ for (var i = 0; i < row3.length; i++) {
 
 	$(".row3").append(letterBtn);
 }
+//print 4th row of keyboard
+function printSpace() {
+	var letterBtn = $("<button>");
 
+	letterBtn.addClass("btnLetter btn btn-warning btn-sm text-center mt-1 btnSpace");
+	letterBtn.attr("data-letter", row4);
+	letterBtn.text('Space');
+
+	$(".row4").append(letterBtn);
+}
+
+printSpace();
+
+function startGame() {
+
+	chosenCity = cities[Math.floor(Math.random() * cities.length)];
+
+	console.log(chosenCity);
+	
+	chosenCityArray = chosenCity.split("");
+
+	console.log(chosenCityArray);
+
+	hiddenCity = [];
+
+	for (var i = 0; i < chosenCityArray.length; i++) {
+		hiddenCity.push('_');
+	}
+
+	var showHiddenCity = hiddenCity.join(' ');
+	$('.word').html(showHiddenCity);
+}
+
+startGame();
+
+//click on letter
 $(".btnLetter").on("click", function() {
 
 	var keyClicked = $(this).attr("data-letter").toLowerCase();
 
-	/*checkLetters(keyClicked);*/
+	// checkLetters(keyClicked);
 
 	console.log(keyClicked);
 });
+
+
+
+/*function checkLetters(letter) {
+
+	var match = false;
+
+	for (var i = 0; i < numBlanks; i++) {
+
+		if (chosenCity[i] == letter) {
+			match = true;
+		}
+	}
+
+	if (match) {
+
+		for (var j = 0; j < numBlanks; j++) {
+
+			if (chosenCity[j] == letter) {
+				blanksAndSuccesses[j] = letter;
+			}
+		}
+
+		var join = blanksAndSuccesses.join(' ');
+	
+		$('#word-blanks').html(join);
+	}
+}*/
