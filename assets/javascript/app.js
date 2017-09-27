@@ -83,7 +83,6 @@ function printSpaceButton() {
 
 function startGame() {
 	chosenCity = cities[Math.floor(Math.random() * cities.length)];
-	console.log(chosenCity);
 	attempt = Math.floor(chosenCity.length * 2 / 3) + Math.floor((Math.random() * 5) + 1);
 	chosenCityArray = chosenCity.split("");
 	hiddenCity = [];
