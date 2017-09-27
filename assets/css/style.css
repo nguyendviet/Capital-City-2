@@ -3,6 +3,11 @@ iframe {
 	height: 100%;
 }
 
+body {
+	background-image: url('../images/old_map.png');
+	font-family: 'Courgette', cursive;
+}
+
 .jumbotron {
 	margin: 0;
 	background-image: url('../images/background.png');

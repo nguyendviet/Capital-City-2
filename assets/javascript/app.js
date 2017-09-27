@@ -96,7 +96,7 @@ function startGame() {
 	$('.word').html(shownCity);
 	$('.attempt').html('Attempt(s) remaining: <b>' + attempt + '</b>');
 	$('.scoreBoard').html('Cities visited: ' + win + ' & Cities missed: ' + loss);
-	$('.alert').attr('class', 'alert').html('');
+	$('.alert').attr('class', 'alert text-center').html('');
 	$('.btnLetter').removeClass('clicked');
 	$('.keyboard').show();
 	$('.map').html('');
