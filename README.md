@@ -1,5 +1,5 @@
 # Capital-City-2
-Personal Project. 
+Personal Project
 
 ## Introduction
 A mobile friendly version of the previous game Guess The Capital City. Play this game whilst you're waiting for your next flight to explore the world!
