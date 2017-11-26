@@ -1,4 +1,4 @@
-# Capital-City-2
+# Capital City 2
 
 ## Overview
 A mobile friendly version of the previous game Guess The Capital City. Play this game whilst you're waiting for your next flight to explore the world!
