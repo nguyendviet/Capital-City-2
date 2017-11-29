@@ -4,7 +4,7 @@
 A mobile friendly version of the previous game Guess The Capital City. 
 
 ### Why I built this app?
-If you travel, you might spend a lot of time waiting at an airport, a train or bus station. I built this game so people can learn a bit more about geography during their trips to explore the world!
+If you travel, you might spend a lot of time waiting in an airport, a train or bus station. I built this game so people can learn a bit more about geography during their trips to explore the world!
 
 ### Demo
 * Github IO: [Capital City 2](https://nguyendviet.github.io/Capital-City-2/)
