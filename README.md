@@ -6,7 +6,7 @@ A mobile friendly version of the previous game Guess The Capital City. Play this
 ### Demo
 * Github IO: [Capital City 2](https://nguyendviet.github.io/Capital-City-2/)
 
-<img src="https://github.com/nguyendviet/Capital-City-2/blob/master/github.png" width="400"/>
+<img src="https://media.giphy.com/media/3o751Qc6E8vFYEQdQk/giphy.gif" width="800"/>
 
 ### Logic
 * A name of an official capital city will be randomly generated.
